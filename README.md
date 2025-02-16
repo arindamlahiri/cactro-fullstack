@@ -44,13 +44,3 @@ The database schema consists of two main tables:
 - Each Option belongs to one Poll
 
 The schema includes index on the `pollId` column for optimized lookups of options by poll.
-
-## TODO
-
-[x] Add shadcn UI components
-[x] Deploy initial version to Vercel
-[x] Create a database schema
-[x] Document schema in README
-[x] Logic to create polls
-[x] Logic to vote on polls
-[x] Logic to view poll results
