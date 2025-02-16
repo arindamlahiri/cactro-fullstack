@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Plus, X } from "lucide-react";
+import { Plus, X, Loader2 } from "lucide-react";
 import { createPoll } from "@/server/actions";
 import Link from "next/link";
 
@@ -14,6 +14,7 @@ export function PollForm() {
   const [options, setOptions] = useState<string[]>(["", ""]);
   const [question, setQuestion] = useState("");
   const [pollId, setPollId] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const addOption = () => {
     setOptions([...options, ""]);
@@ -34,13 +35,18 @@ export function PollForm() {
     const validOptions = options.filter((opt) => opt.trim());
 
     if (question.trim() && validOptions.length > 1) {
-      const pollId = await createPoll({
-        question,
-        optionTitles: validOptions,
-      });
-      setPollId(pollId);
-      setQuestion("");
-      setOptions(["", ""]);
+      setIsSubmitting(true);
+      try {
+        const pollId = await createPoll({
+          question,
+          optionTitles: validOptions,
+        });
+        setPollId(pollId);
+        setQuestion("");
+        setOptions(["", ""]);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -88,7 +94,12 @@ export function PollForm() {
             <Plus className="mr-2 h-4 w-4" />
             Add Option
           </Button>
-          <Button type="submit">Create Poll</Button>
+          <Button type="submit" disabled={isSubmitting}>
+            Create Poll{" "}
+            {isSubmitting ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : null}
+          </Button>
         </div>
       </form>
       {pollId && (

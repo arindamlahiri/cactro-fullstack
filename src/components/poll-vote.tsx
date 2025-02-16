@@ -29,6 +29,7 @@ export function PollVote({ pollId }: PollVoteProps) {
   const [poll, setPoll] = useState<Poll | null>(null);
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [hasVoted, setHasVoted] = useState(false);
+  const [isVoting, setIsVoting] = useState(false);
 
   const fetchPoll = useCallback(async () => {
     const response = await fetch(`/api/polls/${pollId}`);
@@ -44,9 +45,14 @@ export function PollVote({ pollId }: PollVoteProps) {
 
   const handleVote = async () => {
     if (selectedOption && poll) {
-      await votePoll(poll.id, parseInt(selectedOption));
-      setHasVoted(true);
-      await fetchPoll();
+      setIsVoting(true);
+      try {
+        await votePoll(poll.id, parseInt(selectedOption));
+        setHasVoted(true);
+        await fetchPoll();
+      } finally {
+        setIsVoting(false);
+      }
     }
   };
 
@@ -91,9 +97,12 @@ export function PollVote({ pollId }: PollVoteProps) {
             <Button
               className="mt-4"
               onClick={handleVote}
-              disabled={!selectedOption}
+              disabled={!selectedOption || isVoting}
             >
-              Vote
+              Vote{" "}
+              {isVoting ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : null}
             </Button>
           </>
         ) : (
