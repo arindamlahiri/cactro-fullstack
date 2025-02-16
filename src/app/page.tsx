@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { PollForm } from "@/components/poll-form";
 
 export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
+        <h1 className="text-4xl font-extrabold tracking-tight">
           Quick Polling App
         </h1>
-        <Button>Create Poll</Button>
+        <PollForm />
       </div>
     </main>
   );

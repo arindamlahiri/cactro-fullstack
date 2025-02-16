@@ -51,6 +51,6 @@ The schema includes index on the `pollId` column for optimized lookups of option
 [x] Deploy initial version to Vercel
 [x] Create a database schema
 [x] Document schema in README
-[] Logic to create polls
+[x] Logic to create polls
 [] Logic to vote on polls
 [] Logic to view poll results
