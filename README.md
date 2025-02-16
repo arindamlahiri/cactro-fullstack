@@ -20,7 +20,7 @@ A real-time polling application built with Next.js and PostgreSQL.
 
 ## TODO
 
-[] Add shadcn UI components
+[x] Add shadcn UI components
 [] Deploy initial version to Vercel
 [] Create a database schema
 [] Document schema in README
