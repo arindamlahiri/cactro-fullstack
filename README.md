@@ -20,12 +20,37 @@ A real-time polling application built with Next.js and PostgreSQL.
 
 ## Database Schema
 
+The database schema consists of two main tables:
+
+### Poll table
+
+- `id`: UUID, primary key, auto-generated
+- `question`: VARCHAR(256), required
+- `createdAt`: Timestamp, defaults to current timestamp
+- `updatedAt`: Timestamp, auto-updates
+
+### Option table
+
+- `id`: Serial integer, primary key
+- `pollId`: UUID, foreign key reference to Poll table
+- `text`: VARCHAR(256), required
+- `votes`: Integer, defaults to 0
+- `createdAt`: Timestamp, defaults to current timestamp
+- `updatedAt`: Timestamp, auto-updates
+
+### Relationships
+
+- One Poll has many Options
+- Each Option belongs to one Poll
+
+The schema includes index on the `pollId` column for optimized lookups of options by poll.
+
 ## TODO
 
 [x] Add shadcn UI components
 [x] Deploy initial version to Vercel
-[] Create a database schema
-[] Document schema in README
+[x] Create a database schema
+[x] Document schema in README
 [] Logic to create polls
 [] Logic to vote on polls
 [] Logic to view poll results
