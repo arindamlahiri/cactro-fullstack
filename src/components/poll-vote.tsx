@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { votePoll } from "@/server/actions";
 import { redirect } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 interface Poll {
   id: string;
@@ -17,6 +18,7 @@ interface Poll {
     text: string;
     votes: number;
   }[];
+  error?: string;
 }
 
 interface PollVoteProps {
@@ -48,8 +50,12 @@ export function PollVote({ pollId }: PollVoteProps) {
     }
   };
 
-  if (!poll?.id) {
+  if (poll?.error) {
     redirect("/");
+  }
+
+  if (!poll) {
+    return <Loader2 className="h-4 w-4 animate-spin" />;
   }
 
   const totalVotes = poll.options.reduce(
@@ -58,7 +64,7 @@ export function PollVote({ pollId }: PollVoteProps) {
   );
 
   return (
-    <Card>
+    <Card className="w-full md:w-1/2">
       <CardHeader>
         <CardTitle>{poll.question}</CardTitle>
       </CardHeader>
