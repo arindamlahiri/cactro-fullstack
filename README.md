@@ -52,5 +52,5 @@ The schema includes index on the `pollId` column for optimized lookups of option
 [x] Create a database schema
 [x] Document schema in README
 [x] Logic to create polls
-[] Logic to vote on polls
-[] Logic to view poll results
+[x] Logic to vote on polls
+[x] Logic to view poll results
