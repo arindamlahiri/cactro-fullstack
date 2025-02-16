@@ -1,6 +1,7 @@
 # Quick Polling App
 
 A real-time polling application built with Next.js and PostgreSQL.
+[https://cactro-fullstack.vercel.app/](https://cactro-fullstack.vercel.app/)
 
 ## Features
 
@@ -21,7 +22,7 @@ A real-time polling application built with Next.js and PostgreSQL.
 ## TODO
 
 [x] Add shadcn UI components
-[] Deploy initial version to Vercel
+[x] Deploy initial version to Vercel
 [] Create a database schema
 [] Document schema in README
 [] Logic to create polls
