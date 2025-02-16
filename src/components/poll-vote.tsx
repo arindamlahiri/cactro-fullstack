@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { votePoll } from "@/server/actions";
+import { redirect } from "next/navigation";
 
 interface Poll {
   id: string;
@@ -47,13 +48,14 @@ export function PollVote({ pollId }: PollVoteProps) {
     }
   };
 
-  const getTotalVotes = (poll: Poll) => {
-    return poll.options.reduce((sum, option) => sum + option.votes, 0);
-  };
+  if (!poll?.id) {
+    redirect("/");
+  }
 
-  if (!poll) return null;
-
-  const totalVotes = getTotalVotes(poll);
+  const totalVotes = poll.options.reduce(
+    (sum, option) => sum + option.votes,
+    0,
+  );
 
   return (
     <Card>
